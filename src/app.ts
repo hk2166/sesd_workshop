@@ -13,8 +13,8 @@ class App implements App_Interface {
     this.PORT = 4000;
     this.app = express();
     this.app.use(express.json());
-    this.startServer();
     this.initalizeRoutes();
+    this.startServer();
   }
 
   startServer(): void {
@@ -25,6 +25,16 @@ class App implements App_Interface {
   }
 
   initalizeRoutes(): void {
+    this.app.get("/", (req, res) => {
+      res.json({
+        message: "ToDo API Server",
+        endpoints: {
+          "POST /api/task": "Create a new task",
+          "GET /api/task": "Get all tasks",
+        },
+      });
+    });
+
     const todoController = new ToDoController();
     this.app.use("/api", todoController.router);
     console.log("Routes Initialized");
