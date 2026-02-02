@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import { ToDoController } from "./controller/todo.controller.js";
 
 interface App_Interface {
@@ -13,6 +14,7 @@ class App implements App_Interface {
     this.PORT = 4000;
     this.app = express();
     this.app.use(express.json());
+    this.app.use(express.static(path.join(process.cwd(), "public")));
     this.initalizeRoutes();
     this.startServer();
   }

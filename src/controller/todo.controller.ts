@@ -15,6 +15,7 @@ export class ToDoController {
   private initializeRoutes() {
     this.router.post("/task", this.createTask.bind(this));
     this.router.get("/task", this.getAllTasks.bind(this));
+    this.router.patch("/task/:id", this.toggleTask.bind(this));
   }
 
   private async createTask(req: Request, res: Response) {
@@ -33,6 +34,20 @@ export class ToDoController {
       res.json(tasks);
     } catch (error) {
       res.status(500).json({ error: "Failed to get tasks" });
+    }
+  }
+
+  private async toggleTask(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const task = await this.toDoService.toggleTaskCompletion(id);
+      if (!task) {
+        res.status(404).json({ error: "Task not found" });
+        return;
+      }
+      res.json(task);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to toggle task" });
     }
   }
 }

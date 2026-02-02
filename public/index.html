@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>📝 My ToDo List</h1>
+
+      <div class="add-task">
+        <input
+          type="text"
+          id="taskInput"
+          placeholder="Enter a new task..."
+          autocomplete="off"
+        />
+        <button id="addBtn">Add Task</button>
+      </div>
+
+      <div id="taskList" class="task-list">
+        <!-- Tasks will be dynamically added here -->
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

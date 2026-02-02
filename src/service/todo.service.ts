@@ -17,6 +17,7 @@ export class ToDoService {
     const newTask: ToDo = {
       id: Date.now().toString(),
       title,
+      completed: false,
     };
 
     tasks.push(newTask);
@@ -30,6 +31,22 @@ export class ToDoService {
       return JSON.parse(data);
     } catch (error) {
       return [];
+    }
+  }
+
+  async toggleTaskCompletion(id: string): Promise<ToDo | null> {
+    try {
+      const data = await fs.readFile(TASKS_FILE, "utf-8");
+      const tasks: ToDo[] = JSON.parse(data);
+      const task = tasks.find((t) => t.id === id);
+
+      if (!task) return null;
+
+      task.completed = !task.completed;
+      await fs.writeFile(TASKS_FILE, JSON.stringify(tasks, null, 2));
+      return task;
+    } catch (error) {
+      return null;
     }
   }
 }
